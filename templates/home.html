@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="shortcut icon"
+			href="{{ url_for('static', filename='images/favicon.svg') }}"
+			type="image/x-icon"
+		/>
+		<title>OKAI - Home Page</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/home.css') }}"
+		/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script defer src="{{ url_for('static', filename='scripts/home.js') }}"></script>
+	</head>
+	<body>
+		<nav id="navbar">
+			<a class="nav-home" href="/">
+				<img
+					src="{{ url_for('static', filename='images/favicon.svg') }}"
+					alt="#"
+					class="nav-logo"
+				/>
+				<h2 class="nav-title">OKAI</h2>
+			</a>
+			<ul class="nav-links">
+				<li class="nav-link"><a href="/">Inicio</a></li>
+				<li class="nav-link"><a href="#">Sobre</a></li>
+				<li class="nav-link"><a href="#about">Misión</a></li>
+				<li class="nav-link"><a href="#mision">Visión</a></li>
+			</ul>
+		</nav>
+		<div id="content">
+            <div id="about">
+                <h2>Sobre Nosotros</h2>
+                <div>
+                    <h3 class="title">¿Que es OKAI?</h3>
+
+                    <p class="text">
+                        Nuestro proyecto llamado OKAI [...] es una aplicación web enfocado en la traducción del lenguaje de señas para la comunicación entre personas con discapacidades del habla y personas del común, con el objetivo de disminuir la barrera que hay entre este tipo de personas y su entorno social.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="title">
+                        ¿Que ofrecemos?
+                    </h3>
+
+                    <p class="text">
+                        
+                        <ul>
+                            <li><b>OKAI Sign:</b> OKAI sign es nuestra herramienta fisica, la cual trata de unos guantes equipados con sensores que serán encargados de registrar el gesto y poder ser interpretado por la aplicación para pasarlo a sonido o texto.</li>
+                            <li><b>OKAI Gestus:</b> OKAI Gestus es nuestra aplicación, la cual se emparejará con OKAI Sign para que pueda recibir los gestos y convertirlos en sonidos o textos. Además se podrá usar con la camara del dispositivo para poderlo usar en caso de no tener OKAI Sign en el momento.</li>
+                        </ul>
+                        
+                    </p>
+                </div>
+			</div>
+            <div id="mision">
+                <h2 class="title">Nuestra Misión</h2>
+                <p class="text">
+                    OKAI tiene como misión promover la inclusión y mejorar la comunicación de las personas con discapacidades del habla en distintos ambitos, asegurando que puedan interactuar de manera efectiva y comoda en su entorno. Esto implica también sensibilizar a la sociedad para ofrecer un trato respetuoso, reducir prejuicios y la discriminación, fomentando la igualdad de oportunidades en todos los espacios a traves de herramientas practicas.
+                </p>
+            </div>
+            <div id="vision">
+                <h2 class="title">Nuestra Visión</h2>
+                <p class="text">
+                    Nos proyectamos a lograr brindar una mejor calidad de vida con más oportunidades para las personas con discapacidades del habla. Nos vemos siendo capaces de poder producir a masa nuestro producto, con una buena calidad, accesibilidad y eficiencia, aportando positivamente a la sociedad.
+                </p>
+            </div>
+            <div id="ODS">
+                <h3 class="ods-title">
+                    Objetivos de Desarrollo Sostenible de
+                    OKAI
+                </h3>
+                <div class="ods ods-3">
+                    <img class="ods-image"src="{{ url_for('static', filename='images/ODS 3.png') }}" alt="ODS 3">
+                    <p class="ods-info">
+                        Podemos aportar una tranquilidad y comodidad para que las personas mudas puedan estar más incluidas en la sociedad.
+                    </p>
+                </div>
+                <div class="ods ods-8">
+                    <img class="ods-image"src="{{ url_for('static', filename='images/ODS 8.png') }}" alt="ODS 8">
+                    <p class="ods-info">
+                        Con OKAI tenemos la capacidad de disminuir la discriminacion que se pueda generar con las personas que cuenten con esta discapacidad, al mejorar su calidad de vida en espacios laborales, escolares, sociales, etc.
+                    </p>
+                </div>
+                <div class="ods ods-10">
+                    <img class="ods-image"src="{{ url_for('static', filename='images/ODS 10.png') }}" alt="ODS 10">
+                    <p class="ods-info">
+                        Ofrecemos un producto capaz de generar más inclusión y disminuir la brecha comunicativa, el principal problema del que sufre este grupo de personas.
+                    </p>
+                </div>
+
+            </div>
+            <div id="test-it">
+                <div class="importancia">
+                <p>
+                    El lenguaje de señas es muy importante para la comunicación de las personas sordas o mudas, ya que lo usan como lengua viso-gestual-espacial, pero también tiene gran importancia como un simbolo de identidad e incluso patrimonio ya que puede favorecer en su desarrollo tanto lingüistico como cognitivo.
+                </p>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/OKAI Gestus.png') }}" alt="OKAI Gestus" class="img-responsive" />
+                    <p>
+                        Aquí puedes encontrar nuestra versión Beta actual de OKAI Gestus, recuerda que está en desarrollo, por lo que puedes encontrar errores y errores de diseño, pero siempre estaremos para ayudar.
+                    </p>
+                    <a href="Gestus" class="btn"><span>Probar</span><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+		</div>
+		<footer id="footer">
+            <div class="footer-content">
+                <img src="{{ url_for('static', filename='images/OKAI frase.png') }}" alt="OKAI" class="img-responsive" id="footer-logo" />
+            <div>
+                <h4>INTEGRANTES</h4>
+                <ul>
+                    <li>Nicolás Rojas</li>
+                    <li>Angel Rodriguez</li>
+                    <li>Samuel Gómez</li>
+                </ul>
+            </div>
+            <div>
+                <h4>INFORMACIÓN</h4>
+                <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a id="contact">Contacto</a></li>
+                    <li><a id="uwu">hola?</a></li>
+                    <img class="gif disabled" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWltNDJhMG5jNW00cHMwNG12bTlhaWc0bjBydTA3NGN0dGNwZHkyeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lVwbhU4yhO4roWQ4iR/giphy.webp" alt="gif">
+                </ul>
+            </div>
+        </div>
+        <p>© 2023 OKAI</p>
+            <p>Todos los derechos reservados.</p>
+            
+        </footer>
+	</body>
+</html>

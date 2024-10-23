@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visión Artificial</title>
-    <link rel="stylesheet" href="static/main.css">
-</head>
-<body>
-    <div id="navbar">
-        <h1>OKAI</h1>
-        <p>Rompiendo Barreras un Gesto a la Vez</p>
-    </div>
-    <div class="container">
-        <div class="img">
-            <img src="{{ url_for('video_feed') }}" alt="Video en vivo">
-        </div>
-        <aside class="options">
-            
-            <label for="ByN"><input type="checkbox" name="ByN" id="grayScale" placeholder="Escala de Grises"> Escala de Grises</label>
-            <label for="colorsDetection"><input type="checkbox" name="colorsDetection" id="colorsDet"> Detección de colores</label>
-            <label for="handDetection">
-                <input type="checkbox" name="handDetection" id="handDetection">
-                Detección de Señas
-            </label> <label for="TurnOff">
-                <input type="checkbox" name="handDetection" id="handDetection">
-                Apagar
-            </label>
-        </aside>
-    </div>
-    <textarea name="text" id="text"></textarea>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Visión Artificial</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/main.css') }}"
+		/>
+	</head>
+	<body>
+		<h1>hola</h1>
+		<div id="navbar">
+			<h1>OKAI</h1>
+			<p>Rompiendo Barreras un Gesto a la Vez</p>
+		</div>
+		<div class="container">
+			<div class="img">
+				<img src="{{ url_for('video_feed') }}" alt="Video en vivo" id="video" />
+			</div>
+			<aside class="options">
+				<label for="ByN"
+					><input
+						type="checkbox"
+						name="ByN"
+						id="grayScale"
+						placeholder="Escala de Grises"
+					/>
+					Escala de Grises</label
+				>
+				<label for="colorsDetection"
+					><input type="checkbox" name="colorsDetection" id="colorsDet" />
+					Detección de colores</label
+				>
+				<label for="handDetection">
+					<input type="checkbox" name="handDetection" id="handDeteection" />
+					Detección de Señas
+				</label>
+				<label for="TurnOff">
+					<input type="checkbox" name="TurnOff" id="TurnOff" />
+					Apagar
+				</label>
+				<button>Aplicar</button>
+			</aside>
+		</div>
+		<textarea name="text" id="text"></textarea>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='index.js') }}"></script>
+	</body>
 </html>
