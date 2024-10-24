@@ -1,15 +1,24 @@
-$(document).ready(function () {
-	$('input[type="checkbox"]').change(function () {
-		var checkboxName = $(this).attr('name');
-		var checkboxValue = $(this).prop('checked');
+const $byn = $('#ByN')
+const $dColors = $('#colors')
 
-		$.ajax({
-			type: 'POST',
-			url: '/process',
-			data: { checkbox_name: checkboxName, checkbox_value: checkboxValue },
-			success: function (data) {
-				console.log('Checkbox updated successfully!');
-			},
-		});
-	});
-});
+if(location.search == '?byn=active'){
+	$byn.checked = true;
+} else {
+	$byn.checked = false;
+}
+
+$byn.addEventListener('click', () => {
+	if($byn.checked){
+		location.search = '?byn=active'
+	} else {
+		location.search = '?byn=inactive'
+	}
+})
+
+$dColors.addEventListener('click', () => {
+	if($dColors.checked){
+		location.search = '?dcolors=active'
+	} else {
+		location.search = '?dcolors=inactive'
+	}
+})

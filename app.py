@@ -74,12 +74,15 @@ def video_feed():
 
 @app.route('/Gestus')
 def Gestus():
+    option_byn = request.args.get('byn')
+    option_dcolors = request.args.get('dcolors')
+
+    if option_byn == 'active': 
+        print('byn')
+    if option_dcolors == 'active':
+        print('Detección de colores')
     return render_template('gestus.html')
 
-# @app.route('/funcion/<param1>/<param2>')
-# def funcion(param1, param2):
-#     resultado = f'{param1} {param2}'
-#     return render_template('home.html', resultado=resultado)
 
 if __name__ == '__main__':
     app.run(debug=True)
