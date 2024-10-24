@@ -74,7 +74,7 @@ def video_feed():
 
 @app.route('/Gestus')
 def Gestus():
-    return render_template('index.html')
+    return render_template('gestus.html')
 
 # @app.route('/funcion/<param1>/<param2>')
 # def funcion(param1, param2):

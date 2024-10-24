@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.container {
+	display: grid;
+	grid-template-areas: 'video options options';
+	gap: 0;
+	padding: 50px;
+}
+
+#video {
+	grid-area: video;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	position: relative;
+}
+
+#video #logo {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 50px;
+	height: 50px;
+	z-index: 100;
+}
+
+#video-img {
+	border-radius: 10px 0 0 10px;
+	border: 2px solid #0080ff;
+	box-shadow: 0 0 10px #0080ff;
+}
+
+#options {
+	grid-area: options;
+	height: 100%;
+	width: 80%;
+	background: #0080ff;
+	border-radius: 0 10px 10px 0;
+	color: #eee;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+	padding: 0 20px 0 20px;
+	box-shadow: 0 0 10px #0080ff;
+}
+
+#options h1 {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+.option input {
+	display: none;
+}
+
+.option label {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	border-radius: 5px;
+	transition: all 0.3s ease-in-out;
+	background: #0080ff;
+	box-shadow: inset 0 0 10px #222;
+	border: 2px solid #7dbeff;
+	color: #eee;
+	font-size: 1.2rem;
+}
+
+.option a {
+	text-decoration: none;
+}
+
+.option label:hover {
+	transform: scale(1.1);
+	box-shadow: 0 0 10px #7dbeff;
+}
+
+.option input:checked + label {
+	background: #7dbeff;
+	color: #eee;
+	box-shadow: 0 0 10px #7dbeff;
+}
+
+.exit label {
+	background: #de1c84;
+	box-shadow: inset 0 0 10px #222;
+	border: none;
+}
+
+.exit label:hover {
+	background: #eee;
+	color: #de1c84;
+	text-shadow: 0 0 10px #de1c84;
+	box-shadow: 0 0 10px #eee;
+}
+
+#input-text textarea {
+	width: 97%;
+	height: 20vh;
+	resize: none;
+	padding: 5px;
+	background: #70b7ff;
+	color: #eee;
+	font-size: 1rem;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	transition: all 0.3s ease-in-out;
+	text-overflow: scroll;
+}
+
+#input-text textarea:focus {
+	outline: none;
+	border: none;
+	scale: 1.05;
+	box-shadow: 0 0 10px #eee;
+}
+
+.nav-links span {
+	font-family: 'playwrite gb s';
+	opacity: 0.6;
+}

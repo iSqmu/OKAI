@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Gestus - OKAI</title>
+		<link
+			rel="shortcut icon"
+			href="{{ url_for('static', filename='images/favicon.svg') }}"
+			type="image/x-icon"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/main.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/gestus.css') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.css"
+			integrity="sha512-4OzqLjfh1aJa7M33b5+h0CSx0Q3i9Qaxlrr1T/Z+Vz+9zs5A7GM3T3MFKXoreghi3iDOSbkPMXiMBhFO7UBW/g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+	</head>
+	<body>
+		<nav id="navbar">
+			<a class="nav-home" href="/">
+				<img
+					src="{{ url_for('static', filename='images/favicon.svg') }}"
+					alt="#"
+					class="nav-logo"
+				/>
+				<h2 class="nav-title">Gestus</h2>
+			</a>
+			<ul class="nav-links">
+				<span>Rompiendo Barreras un Gesto a la vez</span>
+			</ul>
+		</nav>
+		<div class="container">
+			<div id="video">
+				e
+				<img
+					src="{{ url_for('video_feed') }}"
+					alt="Video en vivo"
+					id="video-img"
+				/>
+				<img
+					src="{{ url_for('static', filename='images/favicon.svg') }}"
+					alt="OKAI logo"
+					id="logo"
+				/>
+			</div>
+			<div id="options">
+				<h1>OKAI Gestus</h1>
+				<div id="input-text">
+					<textarea
+						name="text"
+						id="text"
+						placeholder="Escribe aquí."
+					></textarea>
+				</div>
+				<div class="option" id="grayScale">
+					<input type="checkbox" name="ByN" id="ByN" />
+					<label for="ByN"
+						>Escala de Grises <i class="fa-solid fa-circle-half-stroke"></i>
+					</label>
+				</div>
+				<div class="option" id="colors-det">
+					<input type="checkbox" name="colors" id="colors" />
+					<label for="colors">
+						Detección de colores <i class="fa-solid fa-palette"></i
+					></label>
+				</div>
+				<div class="option exit" id="exitbtn">
+					<a href="/" name="exit" id="exit">
+						<label for="exit">
+							Cerrar <i class="fa-solid fa-right-from-bracket"></i
+						></label>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<div class="footer-content">
+				<img
+					src="{{ url_for('static', filename='images/OKAI frase.png') }}"
+					alt="OKAI"
+					class="img-responsive"
+					id="footer-logo"
+				/>
+				<div>
+					<h4>INTEGRANTES</h4>
+					<ul>
+						<li>Nicolás Rojas</li>
+						<li>Angel Rodriguez</li>
+						<li>Samuel Gómez</li>
+					</ul>
+				</div>
+				<div>
+					<h4>INFORMACIÓN</h4>
+					<ul>
+						<li><a href="#">Sobre Nosotros</a></li>
+						<li><a id="contact">Contacto</a></li>
+						<li><a id="uwu">hola?</a></li>
+						<img
+							class="gif disabled"
+							src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWltNDJhMG5jNW00cHMwNG12bTlhaWc0bjBydTA3NGN0dGNwZHkyeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lVwbhU4yhO4roWQ4iR/giphy.webp"
+							alt="gif"
+						/>
+					</ul>
+				</div>
+			</div>
+			<p>© 2023 OKAI</p>
+			<p>Todos los derechos reservados.</p>
+		</footer>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.js"
+			integrity="sha512-f26fxKZJiF0AjutUaQHNJ5KnXSisqyUQ3oyfaoen2apB1wLa5ccW3lmtaRe2jdP5kh4LF2gAHP9xQbx7wYhU5w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+		<script src="{{ url_for('static', filename='scripts/interactions.gestus.js') }}"></script>
+		<script src="{{ url_for('static', filename='scripts/interactions.footer.js') }}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='gestus.options.method.js') }}"></script>
+	</body>
+</html>
