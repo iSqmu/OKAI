@@ -4,6 +4,11 @@ import mediapipe as mp
 import pyautogui
 import numpy as np
 
+options = {
+    'byn': False,
+    'detcolors': False
+}
+
 app = Flask(__name__)
 
 # Inicializar los módulos de MediaPipe
@@ -28,9 +33,13 @@ def generar_video():
         if not success:
             print("Ignorando el video vacío.")
             continue
-            
+        
+
         image_color = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         results = hands.process(image_color)
+
+        
+        
 
         # Dibujar los resultados y contar los dedos
         if results.multi_hand_landmarks:
@@ -51,7 +60,7 @@ def generar_video():
                 
                 # Escribir la letra usando PyAutoGUI
                 if letras[num_fingers]:
-                    pyautogui.write(letras[num_fingers])
+                    pyautogui.write(letras[num_fingers], interval=0.5)
         
         
         # Codificar el fotograma en JPEG
@@ -78,9 +87,11 @@ def Gestus():
     option_dcolors = request.args.get('dcolors')
 
     if option_byn == 'active': 
-        print('byn')
+        options['byn'] = True
+    else:
+        options['byn'] = False
     if option_dcolors == 'active':
-        print('Detección de colores')
+        print('dcolors')
     return render_template('gestus.html')
 
 
