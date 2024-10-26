@@ -1,85 +1,113 @@
-from flask import Flask, Response, render_template, request
+import pickle
 import cv2
 import mediapipe as mp
-import pyautogui
 import numpy as np
+from flask import Flask, Response, render_template, request
+import pyautogui
+# import pyttsx3
 
-options = {
-    'byn': False,
-    'detcolors': False
-}
+model_dict = pickle.load(open('./model.p', 'rb'))
+model = model_dict['model']
 
-app = Flask(__name__)
+cap = cv2.VideoCapture(0)
 
-# Inicializar los módulos de MediaPipe
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
 
-hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.7, min_tracking_confidence=0.7)
+hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3, max_num_hands=1)
 
-def count_fingers(hand_landmarks):
-    fingers = []
-    for i in range(5):
-        tip_y = hand_landmarks.landmark[mp_hands.HandLandmark(4 * i + 4)].y
-        fold_y = hand_landmarks.landmark[mp_hands.HandLandmark(4 * i + 1)].y
-        fingers.append(1 if tip_y < fold_y else 0)
-    return sum(fingers)
+labels_dict = {0: 'A', 1: 'E', 2: 'I', 3: 'O', 4: 'U', 5: 'B', 6: 'C', 7: 'D', 8: 'F', 9: 'L'}
+options = {
+    'byn': False,
+    'dcolors': False,
+    'voice': True
+}
 
-def generar_video():
-    cap = cv2.VideoCapture(0)  # Captura desde la cámara por defecto
-    
+# engine = pyttsx3.init()
+# voices = engine.getProperty('voices')
+# engine.setProperty('voice', voices[1].id)
+# engine.setProperty('rate', 150)  
+# engine.setProperty('volume', 1.0) 
+
+
+
+
+def gen_frame():
+
     while cap.isOpened():
-        success, image = cap.read()
-        if not success:
-            print("Ignorando el video vacío.")
+        data_aux = []
+        x_ = []
+        y_ = []
+        ret, frame = cap.read()
+        # letra = ''
+        
+        if not ret:
+            print('Ignorando el video vacío.')
             continue
         
-
-        image_color = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        results = hands.process(image_color)
-
+        H, W, _ = frame.shape
         
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = hands.process(frame_rgb)
         
-
-        # Dibujar los resultados y contar los dedos
+        if options['byn']:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)
         if results.multi_hand_landmarks:
-            for hand_landmarks, hand_label in zip(results.multi_hand_landmarks, results.multi_handedness):
-                mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-                num_fingers = count_fingers(hand_landmarks)
-                hand_type = hand_label.classification[0].label
-                hand_label_text = 'Consonante' if hand_type == 'Left' else 'Vocal'
+            for hand_landmarks in results.multi_hand_landmarks:
+                mp_drawing.draw_landmarks(
+                    frame,  # image to draw
+                    hand_landmarks,  # model output
+                    mp_hands.HAND_CONNECTIONS,  # hand connections
+                    mp_drawing_styles.get_default_hand_landmarks_style(),
+                    mp_drawing_styles.get_default_hand_connections_style())
+            
+            for hand_landmarks in results.multi_hand_landmarks:
+                for i in range(len(hand_landmarks.landmark)):
+                    x = hand_landmarks.landmark[i].x
+                    y = hand_landmarks.landmark[i].y
+                    
+                    x_.append(x)
+                    y_.append(y)
                 
-                # Definir letras según la mano
-                vocales = [None, 'a', 'e', 'i', 'o', 'u']
-                consonantes = [None, 'b', 'c', 'd', 'y', 'g']
-                letras = consonantes if hand_label_text == 'Consonante' else vocales
+                for i in range(len(hand_landmarks.landmark)):
+                    x = hand_landmarks.landmark[i].x
+                    y = hand_landmarks.landmark[i].y
+                    data_aux.append(x - min(x_))
+                    data_aux.append(y - min(y_))
+            
+            x1 = int(min(x_) * W) - 10
+            y1 = int(min(y_) * H) - 10
+            
+            x2 = int(max(x_) * W) - 10
+            y2 = int(max(y_) * H) - 10
+            
+            prediction = model.predict([np.asarray(data_aux)])
+            
+            predicted_character = labels_dict[int(prediction[0])]
+            
 
-                # Mostrar la letra en la imagen
-                cv2.putText(image, f'{hand_label_text}: {letras[num_fingers]}', (10, 30), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)
+            cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
+                        cv2.LINE_AA)
+
+            pyautogui.write(predicted_character)
                 
-                # Escribir la letra usando PyAutoGUI
-                if letras[num_fingers]:
-                    pyautogui.write(letras[num_fingers], interval=0.5)
         
+        suc, encode = cv2.imencode('.jpg', frame)
+        frame = encode.tobytes()
         
-        # Codificar el fotograma en JPEG
-        _, buffer = cv2.imencode('.jpg', image)
-        frame = buffer.tobytes()
+        yield(b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
         
-        # Devuelve el fotograma en un formato adecuado para MJPEG
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('home.html')
-
-
-@app.route('/video_feed')
-def video_feed():
-    return Response(generar_video(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/Gestus')
 def Gestus():
@@ -92,7 +120,12 @@ def Gestus():
         options['byn'] = False
     if option_dcolors == 'active':
         print('dcolors')
+    
     return render_template('gestus.html')
+
+@app.route('/video')
+def video():
+    return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':

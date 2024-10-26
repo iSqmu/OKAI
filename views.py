@@ -1,12 +1,13 @@
-# from flask import Flask, Response, render_template
+import pyttsx3
 
-# views = Blueprint(__name__, 'views')
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+engine.setProperty('voice', voices[2].id)
+engine.setProperty('rate', 150)  
+engine.setProperty('volume', 1.0) 
 
-# @app.route('/video_feed')
-# def video_feed():
-#     return Response(generar_video(),
-#                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+engine.say('hola mundo')
+engine.runAndWait()
+engine.endLoop()
