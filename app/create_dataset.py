@@ -16,6 +16,7 @@ DATA_DIR = './data'
 
 data = []
 labels = []
+
 for dir_ in os.listdir(DATA_DIR):
     for img_path in os.listdir(os.path.join(DATA_DIR, dir_)):
         data_aux = []

@@ -9,7 +9,7 @@ import pyautogui
 model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)# Ponga en vez de 0, 1 si lo va a probar con la cam de su pc.
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
@@ -17,7 +17,25 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3, max_num_hands=1)
 
-labels_dict = {0: 'A', 1: 'E', 2: 'I', 3: 'O', 4: 'U', 5: 'B', 6: 'C', 7: 'D', 8: 'F', 9: 'L'}
+labels_dict = labels_dict = {
+    0: 'A',
+    1: 'B',
+    2: 'C',
+    3: 'D',
+    4: 'E',
+    5: 'F',
+    6: 'I',
+    7: 'K',
+    8: 'L',
+    9: 'O',
+    10: 'P',
+    11: 'U',
+    12: 'V',
+    13: 'W',
+    14: 'Y'
+}
+#faltan x, y & w - añadirlas como demostración
+
 options = {
     'byn': False,
     'dcolors': False,
@@ -28,10 +46,7 @@ options = {
 # voices = engine.getProperty('voices')
 # engine.setProperty('voice', voices[1].id)
 # engine.setProperty('rate', 150)  
-# engine.setProperty('volume', 1.0) 
-
-
-
+# engine.setProperty('volume', 1.0)
 
 def gen_frame():
 
@@ -92,7 +107,7 @@ def gen_frame():
             cv2.putText(frame, predicted_character, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
                         cv2.LINE_AA)
 
-            pyautogui.write(predicted_character)
+            pyautogui.write(predicted_character, interval=0.5)
                 
         
         suc, encode = cv2.imencode('.jpg', frame)

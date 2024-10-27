@@ -18,5 +18,5 @@ Se recomienda instalar Python v3.12 para evitar problemas con las instalaciones 
 Para instalar las dependencias usar el siguiente comando:
 
 ```bash
-    pip instal opencv-python mediapipe flask pyautogui pyttsx3 scikit-learn matplotlib
+    pip install flask opencv-python mediapipe pyautogui
 ```
